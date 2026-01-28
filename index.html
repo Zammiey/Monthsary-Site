@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Digital Monthsary</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("Month imgs/hearts-bg.jpeg.jpg") center/cover fixed;
+      color: #ff4d6d;
+      text-align: center;
+    }
+
+    /* Lock Screen */
+    #lockScreen {
+      position: fixed; inset: 0;
+      background: rgba(255, 228, 233, 0.95);
+      display: flex; justify-content: center; align-items: center;
+    }
+    .lockBox {
+      background: #fff; padding: 2rem; border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(255, 182, 193, 0.6);
+    }
+    input, button {
+      margin-top: 1rem; padding: 0.5rem 1rem;
+      border-radius: 10px; border: 1px solid #ffb6c1;
+    }
+    button {
+      background: #ff4d6d; color: #fff; border: none; cursor: pointer;
+    }
+    button:hover { background: #d6336c; }
+
+    header, footer, section {
+      margin: 1rem; padding: 1.5rem;
+      background: #fff5f7; border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(255, 182, 193, 0.5);
+    }
+
+    nav a {
+      margin: 0 1rem; color: #ff4d6d; font-weight: bold;
+      text-decoration: none;
+    }
+    nav a:hover { text-decoration: underline; }
+
+    .gallery {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+    .gallery img {
+      width: 100%; border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    textarea {
+      width: 90%; max-width: 400px; height: 80px;
+      border-radius: 10px; border: 1px solid #ffb6c1; padding: 0.5rem;
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: fixed; font-size: 24px; color: #ff4d6d;
+      animation: floatUp 3s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-150px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Password Screen -->
+  <div id="lockScreen">
+    <div class="lockBox">
+      <h2>🔒 Enter Password</h2>
+      <input type="password" id="sitePassword" placeholder="Password">
+      <br>
+      <button onclick="checkPassword()">Unlock</button>
+      <p id="errorMsg" style="color:red; display:none;">Wrong password 💔</p>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>💖 Happy Monthsary, Babi! 💖</h1>
+    <nav>
+      <a href="#memories">Memories</a>
+      <a href="#monthsary">Monthsary</a>
+      <a href="#messages">Messages</a>
+    </nav>
+  </header>
+
+  <!-- Memories -->
+  <section id="memories">
+    <h2>Our Memories ❤️</h2>
+    <div class="gallery">
+      <img src="Month imgs/memory1.jpeg.jpeg" alt="Memory 1">
+      <img src="Month imgs/memory2.jpeg.jpeg" alt="Memory 2">
+      <img src="Month imgs/memory3.jpeg.jpeg" alt="Memory 3">
+      <img src="Month imgs/memory4.jpeg.jpeg" alt="Memory 4">
+      <img src="Month imgs/memory5.jpeg.jpeg" alt="Memory 5">  
+      <img src="Month imgs/memory6.jpeg.jpeg" alt="Memory 6">
+    </div>
+  </section>
+
+  <!-- Monthsary -->
+  <section id="monthsary">
+    <h2>Our Digital Celebration</h2>
+    <p>Happy 29th monthsary, Babi! 💖</p>
+  </section>
+
+  <!-- Messages -->
+  <section id="messages">
+    <h2>My Messages</h2>
+    <textarea id="note" placeholder="Type your love note..."></textarea><br>
+    <button onclick="sendNote()">Send</button>
+    <div class="message">
+      <h3>From Me to You</h3>
+      <p>Every moment with you is my favorite 💕</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Made with ❤️</p>
+    <p>&copy; 2026 Our Digital Monthsary</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("sitePassword").value;
+      if (input === "August 28,2023") {
+        document.getElementById("lockScreen").style.display = "none";
+        for (let i = 0; i < 10; i++) setTimeout(createHeart, i * 200);
+      } else {
+        document.getElementById("errorMsg").style.display = "block";
+      }
+    }
+
+    function sendNote() {
+      const note = document.getElementById("note").value.trim();
+      if (!note) return alert("Please write a message 💌");
+      const msg = document.createElement("div");
+      msg.className = "message";
+      msg.innerHTML = `<h3>From Me to You</h3><p>${note}</p>`;
+      document.getElementById("messages").appendChild(msg);
+      document.getElementById("note").value = "";
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = ["💖","❤️","💕","💞"][Math.floor(Math.random()*4)];
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = window.innerHeight - 50 + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+
+    document.addEventListener("click", () => {
+      for (let i = 0; i < 3; i++) setTimeout(createHeart, i * 200);
+    });
+  </script>
+</body>
+</html>
